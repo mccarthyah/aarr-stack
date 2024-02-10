@@ -2,7 +2,7 @@ version: '3'
 services:
   sonarr:
     image: linuxserver/sonarr:latest
-    container_name: sonarr-stack
+    container_name: git-sonarr-stack
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -22,7 +22,7 @@ services:
 
   radarr:
     image: linuxserver/radarr:latest
-    container_name: radarr-stack
+    container_name: git-radarr-stack
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -42,7 +42,7 @@ services:
 
   prowlarr:
     image: linuxserver/prowlarr:develop
-    container_name: prowlarr-stack
+    container_name: git-prowlarr-stack
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -56,7 +56,7 @@ services:
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
+    container_name: git-bazarr
     environment:
       - PUID=1000
       - PGID=1000
