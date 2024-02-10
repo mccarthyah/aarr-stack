@@ -1,9 +1,9 @@
 version: '3'
 services:
-  env_file: ./myenvs.env
   sonarr:
     image: linuxserver/sonarr:latest
     container_name: git-sonarr-stack
+    env_file: ./myenvs.env
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -24,6 +24,7 @@ services:
   radarr:
     image: linuxserver/radarr:latest
     container_name: git-radarr-stack
+    env_file: ./myenvs.env
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -44,12 +45,12 @@ services:
   prowlarr:
     image: linuxserver/prowlarr:develop
     container_name: git-prowlarr-stack
+    env_file: ./myenvs.env
     environment:
       - TZ=${TZENV}
       - PUID=0
       - PGID=0
       - UMASK=002
-
     volumes:
       - ${PROWLCONFIG}:/config
     network_mode: container:homarr-stack
@@ -58,6 +59,7 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: git-bazarr
+    env_file: ./myenvs.env
     environment:
       - PUID=1000
       - PGID=1000
