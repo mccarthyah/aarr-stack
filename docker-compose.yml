@@ -2,7 +2,27 @@ version: '3'
 services:
   sonarr:
     image: linuxserver/sonarr:latest
-    container_name: git-sonarr-stack
+    container_name: sonarr-stack
+    environment:
+      - TZ=${TZENV}
+      - PUID=0
+      - PGID=0
+      - UMASK=002
+    volumes:
+      - ${SONCONFIG}:/config
+      - ${PLEXTV}:/download/tv 
+    restart: always
+    network_mode: container:homarr-stack
+    labels:
+      - homepage.group=Media
+      - homepage.name=Sonarr
+      - homepage.icon=sonarr.png
+      - homepage.href=http://10.10.20.200:8989
+      - homepage.description=TV Media Download
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr-stack
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -22,12 +42,13 @@ services:
 
   prowlarr:
     image: linuxserver/prowlarr:develop
-    container_name: git-prowlarr-stack
+    container_name: prowlarr-stack
     environment:
       - TZ=${TZENV}
       - PUID=0
       - PGID=0
       - UMASK=002
+
     volumes:
       - ${PROWLCONFIG}:/config
     network_mode: container:homarr-stack
@@ -35,7 +56,7 @@ services:
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
-    container_name: git-bazarr
+    container_name: bazarr
     environment:
       - PUID=1000
       - PGID=1000
