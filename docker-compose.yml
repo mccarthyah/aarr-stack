@@ -1,8 +1,7 @@
 version: '3'
 services:
 env_file:
-      - path: ./myenvs.env
-          required: true # default
+  - path: ./myenvs.env
   sonarr:
     image: linuxserver/sonarr:latest
     container_name: git-sonarr-stack
