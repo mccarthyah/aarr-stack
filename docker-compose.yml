@@ -1,11 +1,11 @@
 version: '3'
 services:
+env_file:
+      - path: ./myenvs.env
+        required: true # default
   sonarr:
     image: linuxserver/sonarr:latest
     container_name: git-sonarr-stack
-    env_file:
-      - path: ./myenvs.env
-        required: true # default
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -26,9 +26,6 @@ services:
   radarr:
     image: linuxserver/radarr:latest
     container_name: git-radarr-stack
-    env_file:
-      - path: ./myenvs.env
-        required: true # default
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -49,9 +46,6 @@ services:
   prowlarr:
     image: linuxserver/prowlarr:develop
     container_name: git-prowlarr-stack
-    env_file:
-      - path: ./myenvs.env
-        required: true # default
     environment:
       - TZ=${TZENV}
       - PUID=0
@@ -66,9 +60,6 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: git-bazarr
-    env_file:
-      - path: ./myenvs.env
-        required: true # default
     environment:
       - PUID=1000
       - PGID=1000
