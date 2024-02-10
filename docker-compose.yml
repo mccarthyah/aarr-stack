@@ -68,6 +68,10 @@ services:
     network_mode: container:homarr-stack
     restart: always
 
+env_file:
+  - path: ./myenvs.env
+    required: true # default
+
 networks:
   MyMacvlan:
     external: true
