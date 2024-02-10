@@ -1,0 +1,53 @@
+version: '3'
+services:
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr-stack
+    environment:
+      - TZ=${TZENV}
+      - PUID=0
+      - PGID=0
+      - UMASK=002
+    volumes:
+      - ${RADCONFIG}:/config
+      - ${PLEXMOVIES}:/download/movies 
+    restart: always
+    network_mode: container:homarr-stack
+    labels:
+      - homepage.group=Media
+      - homepage.name=Radarr
+      - homepage.icon=radarr.png
+      - homepage.href=http://10.10.20.200:7878/
+      - homepage.description=Movie Media Download
+
+  prowlarr:
+    image: linuxserver/prowlarr:develop
+    container_name: prowlarr-stack
+    environment:
+      - TZ=${TZENV}
+      - PUID=0
+      - PGID=0
+      - UMASK=002
+    volumes:
+      - ${PROWLCONFIG}:/config
+    network_mode: container:homarr-stack
+    restart: always
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - /srv/datastore/docker/bazarr:/config
+      - ${PLEXMOVIES}:/movies #optional
+      - ${PLEXTV}:/tv #optional
+    network_mode: container:homarr-stack
+    restart: always
+
+networks:
+  MyMacvlan:
+    external: true
+    name: MyMacvlan
